@@ -15,4 +15,12 @@ condor_q
 cat logs/test_tensorflow.out
 ```
 
+<pre>
+
+ 8192 x 8192 GPU matmul took: 0.41 sec, 2655.55 G ops/sec
+
+ 8192 x 8192 CPU matmul took: 250.17 sec, 4.39 G ops/sec
+
+</pre>
+
 
