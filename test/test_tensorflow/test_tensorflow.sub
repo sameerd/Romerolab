@@ -1,0 +1,14 @@
+request_gpus = 1
+
+should_transfer_files = YES
+
+executable = test_tensorflow.bash
+
+log = logs/test_tensorflow.log
+error = logs/test_tensorflow.err
+output = logs/test_tensorflow.out
+
+when_to_transfer_output = ON_EXIT
+transfer_input_files = test_tensorflow.py
+
+queue 
