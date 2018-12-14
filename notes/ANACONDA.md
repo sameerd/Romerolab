@@ -17,7 +17,7 @@ sh Anaconda3-5.3.1-Linux-x86_64.sh
 rm Anaconda3-5.3.1-Linux-x86_64.sh
 ```
 
-### tensorflow gpu environement
+### Tensorflow gpu environment installation
 
 Create the tensorflow gpu version. (Instructions copied from
 [here](https://towardsdatascience.com/tensorflow-gpu-installation-made-easy-use-conda-instead-of-pip-52e5249374bc).)
