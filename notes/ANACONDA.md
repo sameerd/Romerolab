@@ -20,7 +20,7 @@ rm Anaconda3-5.3.1-Linux-x86_64.sh
 ### tensorflow gpu environement
 
 Create the tensorflow gpu version. (Instructions copied from
-[here](https://towardsdatascience.com/tensorflow-gpu-installation-made-easy-use-conda-instead-of-pip-52e5249374bc) )
+[here](https://towardsdatascience.com/tensorflow-gpu-installation-made-easy-use-conda-instead-of-pip-52e5249374bc).)
 
 ```shell
 source /scratch/dcosta2/anaconda3/etc/profile.d/conda.sh

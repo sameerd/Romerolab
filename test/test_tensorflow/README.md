@@ -1,8 +1,8 @@
 
 ### Testing Tensorflow on the cpu vs gpu
 
-Run [test_tensorfow.py](test_tensorflow.py) on a compute node with a gpu.
-This script needs [Anaconda and the tf\_gpu environment to be installed first](../../notes/ANACONDA.md)
+Run [test\_tensorfow.py](test_tensorflow.py) on a compute node with a gpu.
+This script first needs [Anaconda and the tf\_gpu environment installed](../../notes/ANACONDA.md).
 
 ```shell
 # submit job
@@ -14,10 +14,6 @@ condor_q
 # output 
 cat logs/test_tensorflow.out
 ```
-
-The results are dependent on how busy the compute nodes are. A speed up of
-around 100x seems normal. 
-
 <pre>
 
  8192 x 8192 GPU matmul took: 0.41 sec, 2655.55 G ops/sec
@@ -26,4 +22,6 @@ around 100x seems normal.
 
 </pre>
 
+The results are dependent on how busy the compute nodes are. A speed up of
+around 100x seems normal. 
 
