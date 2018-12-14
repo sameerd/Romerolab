@@ -30,7 +30,7 @@ conda create --name tf_gpu tensorflow-gpu
 ```
 
 ### USAGE INSTRUCTIONS 
-To use `anaconda` and the `tf\_gpu` environment we run the following commands
+To use `anaconda` and the `tf_gpu` environment we run the following commands
 
 ```shell
 source /scratch/dcosta2/anaconda3/etc/profile.d/conda.sh
