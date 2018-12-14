@@ -1,5 +1,9 @@
 # Testing tensorflow on GPU vs CPU
 
+# Run a large matrix multiplication on both the CPU and the GPU 
+# and benchmark the time taken to run. Takes the average of 10 tries
+
+# This code is copied from the link below and then modified
 # https://stackoverflow.com/questions/41804380/testing-gpu-with-tensorflow-matrix-multiplication
 
 import os
@@ -19,9 +23,9 @@ with tf.device("/gpu:0"):
 
 # Run matrix multiplication on the CPU
 with tf.device("/CPU:0"):
-    matrixc1 = tf.Variable(tf.ones((n, n), dtype=dtype))
-    matrixc2 = tf.Variable(tf.ones((n, n), dtype=dtype))
-    productc = tf.matmul(matrixc1, matrixc2)
+    matrix1c = tf.Variable(tf.ones((n, n), dtype=dtype))
+    matrix2c = tf.Variable(tf.ones((n, n), dtype=dtype))
+    productc = tf.matmul(matrix1c, matrix2c)
 
 
 # avoid optimizing away redundant nodes
@@ -32,6 +36,7 @@ sess = tf.Session(config=config)
 sess.run(tf.global_variables_initializer())
 iters = 10
 
+# Run on GPU
 # pre-warming
 sess.run(productg.op)
 
@@ -46,6 +51,7 @@ rate = iters*ops/elapsed/10**9
 print('\n %d x %d GPU matmul took: %.2f sec, %.2f G ops/sec' % (n, n,
                                                             elapsed/iters,
                                                             rate,))
+# Now Run on GPU
 # pre-warming
 sess.run(productc.op)
 
