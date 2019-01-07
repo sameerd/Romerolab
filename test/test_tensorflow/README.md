@@ -2,7 +2,9 @@
 ### Testing Tensorflow on the cpu vs gpu
 
 Run [test\_tensorflow.py](test_tensorflow.py) on a compute node with a gpu.
-This script first needs [Anaconda and the tf\_gpu environment installed](../../notes/ANACONDA.md).
+
+#### Prerequisites
+* [Anaconda and the tf\_gpu environment](../../notes/computing/installing_annoconda.md).
 
 ```shell
 # submit job
