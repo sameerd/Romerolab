@@ -135,7 +135,12 @@
   \draw[todots] (MSA)               --  (weightseqid);
   \draw[todots] (MSA)               --  (weightcons);
   \draw[todots] (weightseqid)       --  (FlattenMSA);
-  \draw[to]     (FlattenMSA)        --  (CovMat);
+  \draw[to]     (FlattenMSA) to 
+                    node[midway,above]{Covariance}
+                (CovMat);
+  \draw[to]     (DataProj) to 
+                    node[midway,above,sloped]{Covariance}
+                (CompressCovmat);
   \draw[todots] (CovMat)            --  (weightcons);
   \draw[todots] (weightcons)        --  (DataProj);
   \draw[to]     (FlattenMSA)        --  (MaxEntBig);
