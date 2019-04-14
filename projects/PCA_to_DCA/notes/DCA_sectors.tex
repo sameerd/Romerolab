@@ -18,7 +18,7 @@
   process/.style={draw,thick,circle,fill=blue!20},
   calcmat/.style={datamat,fill=green!20},
   calcmatfinal/.style={datamat,fill=magenta!20},
-  algoprocess/.style={draw,thin,dotted,inner sep=.3cm},
+  algoprocess/.style={datamat,thin,dotted,fill=gray!20,inner sep=.3cm},
   to/.style={->,>=stealth',shorten >=1pt,semithick,font=\sffamily\footnotesize},
   todots/.style={->,dotted,>=stealth',shorten >=1pt,semithick,font=\sffamily\footnotesize},
   toapprx/.style={<->,double,dotted,>=stealth',shorten >=1pt,semithick,font=\sffamily\footnotesize},
@@ -28,7 +28,11 @@
 
     \&
     \&  \node[datamat] (MSA) {
-            MSA (Binary Tensor) \\ $x_{si}^a \; \; M\times L \times q$
+            \begin{tabular}{c}
+                MSA \\
+                Binary Tensor $x_{si}^a$ \\ 
+                \multicolumn{1}{r}{\sffamily\footnotesize $M\times L \times q$}
+            \end{tabular}
         }; 
     \&
     \& \\
@@ -39,55 +43,89 @@
         }; 
     \& 
     \& \node[process] (weightcons) {
-                Weight by \\ conservation
+            Weight by \\ conservation \\ \sffamily\footnotesize{$\phi_i^a$}
         }; 
     \& \node[algoprocess] (SingularProj)  {
-                Project via \\ first singular \\vector $P_i^a$
+            Project via \\ 
+            first singular vector \\ 
+            \footnotesize{$P_i^a = {f_i^a}/ {\sqrt{\sum_{b} (f_i^b)^2}}$}
     }; \\
 
     \node[datamat] (FlattenMSA) {
-            MSA Multi Index \\ $x_{s, (i,a)}\;\; M\times Lq$
-        };  
+            \begin{tabular}{c}
+            MSA Multi Index \\ 
+            \footnotesize{$x_{s, (i,a)}$}\\
+            \multicolumn{1}{r}\sffamily\footnotesize{$M\times Lq$}
+            \end{tabular}
+    };  
     \& 
     \& \node[calcmat] (CovMat) {
-            Covariance\\Matrix $Lq\times Lq$
+            \begin{tabular}{c}
+            Covariance Matrix \\ 
+            \footnotesize{$C_{ij}^{ab} = f_{ij}^{ab} - f_i^a f_j^b$} \\
+            \multicolumn{1}{r}{\sffamily\footnotesize $Lq\times Lq$}
+            \end{tabular}
         };
     \&
     \& \node[datamat] (DataProj) {
-            Compressed\\Data $M\times L$
+            \begin{tabular}{c}
+            Compressed Data \\
+            \multicolumn{1}{r}{\sffamily\footnotesize $M\times L$}
+            \end{tabular}
         }; \\
 
-    % new line in matrix
-    \\
-    \\
 
     \node[algoprocess] (MaxEntBig) {
-            Maximum Entropy \\Distribution\\ Match 1st and \\ 2nd moments
+            Maximum Entropy \\
+            Distribution. Match \\
+            single, pairwise \\
+            frequences \footnotesize{$f_i^a$, $f_{ij}^{ab}$}.
         };  
     \& 
-    \& \node[algoprocess] (CompressCov) {
-            Compress via\\Singular Norm
+    \& \node[algoprocess] (CompressCovFrob) {
+            Compress via\\
+            Frobenius Norm \\
+            \footnotesize{$C_{ij} = \sqrt{\sum_{a,b} C_{ij}^{ab}}$}
+        };
+    \& \node[algoprocess] (CompressCovSing) {
+            Compress via\\
+            Singular Norm \\
+            \footnotesize{$C_{ij} = \lambda_{ij}^1$}
+        };
+        \&
+    \& \\
+
+
+    \node[calcmat] (NetworkBig) {
+            \begin{tabular}{c}
+            Network Weights \\ 
+            \footnotesize{$(i,a) \xrightarrow{e_{ij}^{ab}} (j,b)$}  \\
+            \multicolumn{1}{r}{\sffamily\footnotesize $Lq\times Lq$}
+            \end{tabular}
+        };  
+    \& 
+    \& 
+    \node[calcmat] (CompressCovmatFrob) {
+            \begin{tabular}{c}
+            Frobenius \\ Compressed\\ Covariance \\Matrix\\ 
+            \multicolumn{1}{r}{\sffamily\footnotesize $L\times L$}
+            \end{tabular}
         };
     \&
+    \node[calcmat] (CompressCovmatSing) {
+            \begin{tabular}{c}
+            Singular \\ Compressed \\ Covariance \\ Matrix \\ 
+            \multicolumn{1}{r}{\sffamily\footnotesize $L\times L$}
+            \end{tabular}
+        };
     \& \node[algoprocess] (MaxEntSmall) {
             Maximum Entropy \\Distribution\\ Match 1st and \\ 2nd moments
         };  
-    \& \\
-
     \\
 
-    \node[calcmat] (NetworkBig) {
-            Network Weights \\ \\ $(i,a) \xrightarrow{e_{ij}(a,b)} (j,b)$ \\ 
-        };  
-    \& 
-    \&
-    \node[calcmat] (CompressCovmat) {
-            Compressed \\ Covariance Matrix \\ $L\times L$
-        };
-    \& \\
-
     \node[algoprocess] (CompressFrob) {
-            Compress via\\ Frobenius Norm
+            Compress via\\ Frobenius Norm \\
+            \footnotesize{$e_{ij} = {\sqrt{\sum_{a,b} (e_{ij}^{ab})^2}}$}
     };
     \&
     \&
@@ -106,7 +144,7 @@
     \\
 
     \node[algoprocess] (APC) {
-            Phylogenetic / \\ Sampling \\Correction
+            Phylogenetic / \\ Sampling (APC)\\Correction
         };
     \&  
     \&  
@@ -139,22 +177,25 @@
                     node[midway,above]{Covariance}
                 (CovMat);
   \draw[to]     (DataProj) to 
-                    node[midway,above,sloped]{Covariance}
-                (CompressCovmat);
+                    node[midway,below,sloped]{Covariance}
+                (CompressCovmatSing);
   \draw[todots] (CovMat)            --  (weightcons);
   \draw[todots] (weightcons)        --  (DataProj);
   \draw[to]     (FlattenMSA)        --  (MaxEntBig);
-  \draw[to]     (CovMat)            --  (CompressCov);
+  \draw[to]     (CovMat)            --  (CompressCovFrob);
+  \draw[to]     (CovMat)            --  (CompressCovSing);
+  \draw[to]     (CompressCovSing)   --  (CompressCovmatSing);
   \draw[todots] (weightcons)    to[bend left=20]  
-                (CompressCov);
+                (CovMat);
   \draw[to]     (DataProj)          --  (MaxEntSmall);
   \draw[to]     (MaxEntBig)         --  (NetworkBig);
   \draw[to]     (MaxEntSmall)       --  (NetworkSmall);
   \draw[to]     (NetworkBig)        --  (CompressFrob);
-  \draw[to]     (CompressCov)       --  (CompressCovmat);
-  \draw[to]     (CompressCovmat)    --  (PCA);
+  \draw[to]     (CompressCovFrob)   --  (CompressCovmatFrob);
+  \draw[to]     (CompressCovmatFrob)--  (PCA);
   \draw[to]     (PCA)               --  (ICA);
-  \draw[toapprx](CompressCovmat)    to
+  \draw[toapprx](CompressCovmatFrob)--  (CompressCovmatSing);
+  \draw[toapprx](CompressCovmatSing) to
                     node[midway,above,sloped] {Mean Field Approx?} 
                     node[midway,below,sloped] {
                             negative inverse \\covariance matrix
@@ -174,6 +215,6 @@
   \draw[to]     (NetworkBigSmall)   -- (APC);
   \draw[to]     (APC)               -- (Contacts);
 \end{tikzpicture}
-\caption{Right column shows connection between 2013Cocco (left column) and 2016Rivoire (middle column)}
+\caption{Right column shows connection between DCA (leftmost column) and SCA (middle column)}
 \end{figure}
 \end{document}
