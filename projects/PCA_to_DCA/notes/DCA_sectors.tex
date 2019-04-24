@@ -74,14 +74,27 @@
             \end{tabular}
         }; \\
 
+    \&
+    \node[calcmat] (ProjCovMat) {
+            Projected\\
+            Covariance 
+    };
+    \&
+    \&
+    \& \\
+
 
     \node[algoprocess] (MaxEntBig) {
             Maximum Entropy \\
-            Distribution. Match \\
-            single, pairwise \\
-            frequences \footnotesize{$f_i^a$, $f_{ij}^{ab}$}.
+            Distribution. \\
+            Match \\
+            frequencies \\ \footnotesize{$f_i^a$, $f_{ij}^{ab}$}.
         };  
-    \& 
+    \& \node[algoprocess] (PSICOV) {
+            PSICOV \\
+            Inverse \\Covariance 
+    };
+
     \& \node[algoprocess] (CompressCovFrob) {
             Compress via\\
             Frobenius Norm \\
@@ -128,6 +141,10 @@
             \footnotesize{$e_{ij} = {\sqrt{\sum_{a,b} (e_{ij}^{ab})^2}}$}
     };
     \&
+    \node[algoprocess] (CompressL1) {
+            Compress via\\ $l_1$-Norm \\
+            \footnotesize{$e_{ij} = {\sum_{a,b} |e_{ij}^{ab}|}$}
+    };
     \&
     \node[algoprocess] (PCA) {PCA};
     \& \\
@@ -201,16 +218,23 @@
                             negative inverse \\covariance matrix
                     } 
                 (NetworkSmall);
-  \draw[to]     (ICA)            --  (Sectors);
+  \draw[to]     (ICA)               --  (Sectors);
   \draw[toapprx](NetworkBigSmall)   to
                     node[near start,above,sloped]{Approximately equal?}
                 (NetworkSmall);
-  \draw[toapprx](CovMat)        to 
+  \draw[to]     (CovMat) to node[midway,sloped,above] {Drop \\one}
+                            node[midway,sloped,below] {Amino \\Acid}
+                (ProjCovMat);
+  \draw[to]     (CovMat)            -- (PSICOV); 
+  \draw[to]     (PSICOV)            to[bend left=20] (NetworkBig); 
+  \draw[toapprx](ProjCovMat)        to
                     node[midway,above,sloped] {Mean Field Approx} 
                     node[midway,below,sloped] {
                             negative inverse covariance matrix
                     } 
                 (NetworkBig);
+  \draw[to]     (NetworkBig)        -- (CompressL1);
+  \draw[to]     (CompressL1)        -- (NetworkBigSmall);
   \draw[to]     (CompressFrob)      -- (NetworkBigSmall);
   \draw[to]     (NetworkBigSmall)   -- (APC);
   \draw[to]     (APC)               -- (Contacts);
