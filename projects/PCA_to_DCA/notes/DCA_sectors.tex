@@ -4,6 +4,7 @@
 \usepackage[margin=0.5in]{geometry}
 \usepackage{mathtools}
 \usepackage{tikz}
+\usetikzlibrary{matrix}
 \usetikzlibrary{arrows}
 
 % Modified from http://www.texample.net/tikz/examples/data-flow-diagram/
@@ -13,12 +14,12 @@
 \centering
 \begin{tikzpicture}[
   font=\sffamily,
-  every matrix/.style={ampersand replacement=\&,column sep=.5cm,row sep=.5cm},
-  datamat/.style={draw,thick,rounded corners,fill=yellow!20,inner sep=.3cm},
+  every matrix/.style={ampersand replacement=\&,column sep=.2cm,row sep=.3cm},
+  datamat/.style={draw,thick,rounded corners,fill=yellow!20,inner sep=.2cm},
   process/.style={draw,thick,circle,fill=blue!20},
   calcmat/.style={datamat,fill=green!20},
   calcmatfinal/.style={datamat,fill=magenta!20},
-  algoprocess/.style={datamat,thin,dotted,fill=gray!20,inner sep=.3cm},
+  algoprocess/.style={datamat,thin,dotted,fill=gray!20,inner sep=.2cm},
   to/.style={->,>=stealth',shorten >=1pt,semithick,font=\sffamily\footnotesize},
   todots/.style={->,dotted,>=stealth',shorten >=1pt,semithick,font=\sffamily\footnotesize},
   toapprx/.style={<->,double,dotted,>=stealth',shorten >=1pt,semithick,font=\sffamily\footnotesize},
@@ -59,6 +60,7 @@
             \end{tabular}
     };  
     \& 
+    \node (BlankCov) {};
     \& \node[calcmat] (CovMat) {
             \begin{tabular}{c}
             Covariance Matrix \\ 
@@ -75,9 +77,12 @@
         }; \\
 
     \&
-    \node[calcmat] (ProjCovMat) {
+    \node[calcmat] (ProjCovMat) [below of=BlankCov, node distance=.2cm] { 
+            \begin{tabular}{c}
             Projected\\
-            Covariance 
+            Covariance \\
+            \multicolumn{1}{r}{\sffamily\footnotesize $L(q-1)\times L(q-1)$}
+            \end{tabular}
     };
     \&
     \&
@@ -90,7 +95,7 @@
             Match \\
             frequencies \\ \footnotesize{$f_i^a$, $f_{ij}^{ab}$}.
         };  
-    \& \node[algoprocess] (PSICOV) {
+    \& \node[algoprocess] (PSICOV) [below of=ProjCovMat, node distance=.2cm] {
             PSICOV \\
             Inverse \\Covariance 
     };
