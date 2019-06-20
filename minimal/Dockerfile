@@ -11,13 +11,14 @@ RUN apt-get -yq update && \
         software-properties-common \
         apt-transport-https \
         ca-certificates \
+        apt-utils \
         aptitude \
         wget \
         unzip && \
     apt-get clean && \
     rm -rf /tmp/* /var/tmp/* /var/lib/apt/archive/* /var/lib/apt/lists/*
 
-#FROM continuumio/miniconda3
-#RUN conda create -n env python=3.6
-#RUN echo "source activate env" > ~/.bashrc
-#ENV PATH /opt/conda/envs/env/bin:$PATH
+FROM continuumio/miniconda3
+ADD ./environment.yml /
+RUN conda update -n base conda -y && conda env update
+
